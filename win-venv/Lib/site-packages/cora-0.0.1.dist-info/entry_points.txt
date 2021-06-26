@@ -1,0 +1,3 @@
+[console_scripts]
+cora = cora.__main__:main
+

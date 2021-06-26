@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="outer">
+		<h1>Room Code: {{ room }}</h1>
+		<h2><span id="output">None</span></h2>
+		<div class="grid">
+			<table id="output-grid">
+				{% for r in range(rows) %}
+					<tr>
+					{% for c in range(cols) %}
+						<td id="{{ chr(65+r) + "|" + str(c) }}" class="output-cell">
+{#							{{ chr(65+r) + "|" + str(c) }}#}
+							.
+						</td>
+					{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
+	<script src="/static?t=js&q=snake.js"></script>
+{% endblock content %}

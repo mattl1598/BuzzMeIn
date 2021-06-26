@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div id="host">
+		<h2>Host a Game</h2>
+		<select name="gamemode" id="gamemode">
+		  <option value="snake" selected>Snake</option>
+		  <option value="gameoflife" disabled>Game Of Life</option>
+		  <option value="tetris" disabled>Tetris</option>
+		</select>
+		<button onclick="start_game()">Start Game</button>
+	</div>
+	<hr>
+	<div id="join">
+		<h2>Control a Game</h2>
+
+		<input id="roomcode" type="text" placeholder="Room Code"/>
+		<button onclick="control_game()">Control Game</button>
+	</div>
+	<hr>
+	<div id="qr">
+		<h2>Scan a QR Code</h2>
+
+
+		
+		<input id="roomcode" type="text" placeholder="Room Code"/>
+		<button onclick="control_game()">Control Game</button>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
+	<script src="/static?t=js&q=lobby.js"></script>
+{% endblock content %}

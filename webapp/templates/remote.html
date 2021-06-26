@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="outer">
+	<div class="title">
+		<h1>Remote for: {{ room }}</h1>
+	</div>
+	<div class="game-controls">
+		<button id="pp" onclick="play_pause()">Start Game</button>
+		<button onclick="restart()">Restart</button>
+	</div>
+	<div class="controls">
+		<table>
+			<tr>
+				<td></td>
+				<td>
+					<svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMin" id="up" onclick="arrow()">
+						<path d="m 6 0 l -5.5 6 h 2 v 6 h 7 v -6 h 2 z "></path>
+					</svg>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMin" id="left" onclick="arrow()">
+						<path d="m 6 0 l -5.5 6 h 2 v 6 h 7 v -6 h 2 z "></path>
+					</svg>
+				</td>
+				<td></td>
+				<td>
+					<svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMin" id="right" onclick="arrow()">
+						<path d="m 6 0 l -5.5 6 h 2 v 6 h 7 v -6 h 2 z "></path>
+					</svg>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMin" id="down" onclick="arrow()">
+						<path d="m 6 0 l -5.5 6 h 2 v 6 h 7 v -6 h 2 z "></path>
+					</svg>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
+<script src="static?t=js&q=remote.js"></script>
+{% endblock content %}

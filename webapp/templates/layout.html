@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	{% set layout_css_files = ["layout.css"] %}
+	{% if template_css_files is defined %}
+	    {% set all_css_files = layout_css_files + template_css_files %}
+	{% else %}
+	    {% set all_css_files = layout_css_files %}
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="/static?t=css&q={{ '+'.join(all_css_files) }}">
+</head>
+<body>
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>
