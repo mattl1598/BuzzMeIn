@@ -2,39 +2,61 @@ let socket = io("/test");
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const room = urlParams.get('room');
-// let msg_ele = document.getElementById("message1");
+const player = urlParams.get('player');
+let buzzed = false;
+let buzzer_elem = document.querySelector("#buzzer");
+let score = 0;
+let sid = ""
 
 socket.on('connect', function() {
-	socket.emit('test', {data: 'I\'m connected!'});
-	socket.emit('join', {"room": room, "client_type": "remote"})
+	// socket.emit('test', {data: 'I\'m connected!'});
+	socket.emit('join', {"room": room, "client_type": "remote", "http_sid": http_sid, "name": player})
 });
 
-socket.on('ppAck', function ppAck(data) {
-	if (data["content"]) {
-		document.getElementById("pp").innerHTML = "Pause Game";
+// socket.on('connected', function(data) {
+// 	sid = data["sid"]
+// 	socket.emit('identify', {"type": "player", "room": room, "player": player, "score": score})
+// });
+
+function send_buzz() {
+	if (!buzzed) {
+		socket.emit('buzz', {"room": room, "player": player})
+		buzzed = true;
+		buzzer_elem.classList.add("buzzed")
+	}
+}
+
+socket.on('release', function() {
+	buzzed = false
+	buzzer_elem.classList.remove("buzzed")
+});
+
+socket.on('lock', function() {
+	buzzed = true
+	buzzer_elem.classList.add("buzzed")
+});
+
+socket.on('identify', function() {
+	socket.emit('identify', {"type": "player", "room": room, "player": player, "score": score})
+})
+
+socket.on('scores', function(data) {
+	console.log(data["players"])
+	score = data["players"][sid]["score"]
+})
+
+socket.on('error', function(data) {
+	if (data["error"] === "room does not exist") {
+		alert("This game room does not exist. Redirecting to lobby")
+		let dest = window.location.protocol + "//" + window.location.host + "/"
+		window.location.replace(dest);
 	} else {
-		document.getElementById("pp").innerHTML = "Continue Game";
+		alert("An error occurred. Redirecting to lobby")
+		let dest = window.location.protocol + "//" + window.location.host + "/"
+		window.location.replace(dest);
 	}
 });
-
-function play_pause() {
-	socket.emit('play_pause', {"room": room});
-}
-
-function restart() {
-	socket.emit("restart", {"room": room});
-}
 
 function send(msg) {
 	socket.emit('remote', {data: msg, "room": room});
-}
-
-function arrow() {
-	if (event.srcElement.tagName === "path") {
-		console.log(event.srcElement.parentElement)
-		socket.emit('remote', {data: event.srcElement.parentElement.id, "room": room});
-	} else {
-		console.log(event.target.id)
-		socket.emit('remote', {data: event.target.id, "room": room});
-	}
 }

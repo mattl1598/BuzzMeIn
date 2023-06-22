@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+	<script>
+		const http_sid = "{{ http_sid }}"
+	</script>
+	<div id="host">
+		<button onclick="lock_all_buzzers()">Lock All Buzzers</button>
+		<button onclick="release_all_buzzers()">Release All Buzzers</button>
+		<button onclick="socket.emit('rooms', {'room': 'test'})">Rooms</button>
+		<select id="gamemode" name="gamemode" onchange="setGamemode()">
+			<option value="buzzer" selected>Gamemode: Buzzer</option>
+			<option value="timer">Gamemode: Timer</option>
+			<option value="averages">Gamemode: Averages</option>
+		</select>
+	</div>
+	<hr>
+	<div class="timer">
+		<button onclick="time=Date.now();release_all_buzzers();">Start Timer</button>
+		<label for="timer_aim">Target(ms)<input type="number" id="timer_aim" name="timer_aim"></label>
+	</div>
+	<hr class="timer">
+	<div class="template player" id="player_template">
+		<div class="player_name"></div>
+		<div class="timer"></div>
+		<div class="score_manipulation">
+			<button onclick="updateScore(-1)">-1</button>
+			<span class="score_readout">0</span>
+			<button onclick="updateScore(1)">+1</button>
+		</div>
+	</div>
+	<div id="data">
+
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
+	<script src="/static?t=js&q=host.js"></script>
+{% endblock content %}

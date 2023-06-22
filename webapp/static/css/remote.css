@@ -11,11 +11,21 @@ svg#down {
 @media only screen and (orientation: landscape) {
     div.controls {
         width: 50vw;
+        height: 50vw;
         text-align: center;
         display: flex;
         align-items: center;
-        /*height: 50vw;*/
     }
+
+    div.buzzer {
+        width: 100%;
+        height: 100%;
+        background: green;
+    }
+    div.buzzer.buzzed {
+        background: red !important;
+    }
+
     div.controls table {
         text-align: center;
     }
@@ -30,10 +40,20 @@ svg#down {
 @media only screen and (orientation: portrait) {
     div.controls {
         width: 100vw;
+        height: 100vw;
         display: flex;
         align-items: center;
         flex-direction: column;
     }
+    div.buzzer {
+        width: 100%;
+        height: 100%;
+        background: green;
+    }
+    div.buzzer.buzzed {
+        background: red !important;
+    }
+
     div.game-controls {
         display: flex;
         align-items: center;
