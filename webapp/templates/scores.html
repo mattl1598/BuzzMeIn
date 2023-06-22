@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="title">
+			<h1>Leaderboard</h1>
+		</div>
+	</div>
+	{% for player in players %}
+		<div class="row">
+			<div class="position">
+				<h2>{{ loop.index }}</h2>
+			</div>
+			<div class="name">
+				<h2>{{ player["name"] }}</h2>
+			</div>
+			<div class="score">
+				<h2>{{ player["score"] }}</h2>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock content %}

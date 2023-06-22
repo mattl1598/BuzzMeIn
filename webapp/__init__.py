@@ -21,7 +21,7 @@ class Thermos(Flask):
 app = Thermos(__name__)
 app.config['SECRET_KEY'] = "a secret key"
 # save current working directory as root folder for webapp
-app.config['ROOT_FOLDER'] = "E:\\004_Repos\\BuzzMeIn"
+app.config['ROOT_FOLDER'] = "C:/Users/mattl/PycharmProjects/BuzzMeIn"
 app.config['FLASK_ENV'] = "development"
 app.env = 'development'
 
@@ -58,13 +58,20 @@ def get_text_colour(bg_colour):
 		return a / b
 
 	def hex_to_rgb(hex_string):
-		hex_string = hex_string.strip("#")
-		part_length = len(hex_string) // 3
-		hex_split = [hex_string[i:i + part_length] for i in range(0, len(hex_string), part_length)]
+		if isinstance(hex_string, str):
+			hex_string = hex_string.strip("#")
+			part_length = len(hex_string) // 3
+			hex_split = [hex_string[i:i + part_length] for i in range(0, len(hex_string), part_length)]
 
-		rgb = [int(i, 16) for i in hex_split]
+			rgb = [int(i, 16) for i in hex_split]
 
-		return rgb
+			return rgb
+		else:
+			return [
+				float(hex_string.r),
+				float(hex_string.g),
+				float(hex_string.b)
+			]
 
 	bg_rgb = hex_to_rgb(bg_colour)
 	bl_rgb = hex_to_rgb("#000000")

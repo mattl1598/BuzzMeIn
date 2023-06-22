@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 
 import corha as corha
@@ -31,10 +32,27 @@ def host():
 @app.route("/remote")
 def remote():
 	room = request.args.get("room")
-	player = request.args.get("room")
+	player = request.args.get("player")
 	css_files = ["remote.css"]
 	http_sid = session["session_id"]
 	return render_template("remote.html", room=room, player=player, template_css_files=css_files, http_sid=http_sid)
+
+
+@app.route("/scores")
+def scores():
+	room = request.args.get("room")
+	css_files = ["scores.css"]
+	players = []
+	imax = 6
+	for i in range(0, imax):
+		players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
+
+	players.sort(key=lambda i: i.get("score"), reverse=True)
+	return render_template(
+		"scores.html",
+		players=players,
+		template_css_files=css_files
+	)
 
 
 @socketio.on('rooms', namespace="/test")
