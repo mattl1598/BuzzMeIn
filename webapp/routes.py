@@ -176,6 +176,7 @@ def random_word():
 	return new_word
 
 
+# refactor that shit into proper separate routes
 @app.route("/static", methods=["GET"])
 def static_loader():
 	"""
