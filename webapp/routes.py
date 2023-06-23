@@ -43,9 +43,18 @@ def scores():
 	room = request.args.get("room")
 	css_files = ["scores.css"]
 	players = []
-	imax = 6
-	for i in range(0, imax):
-		players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
+
+	if room == "demo":
+		imax = 6
+		for i in range(0, imax):
+			players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
+	else:
+		game = app.game_rooms[room]["players"]
+		print(game)
+		for player in game.values():
+			players.append(
+				{"name": player["name"], "score": player["score"]}
+			)
 
 	players.sort(key=lambda i: i.get("score"), reverse=True)
 	return render_template(
