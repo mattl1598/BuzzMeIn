@@ -1,33 +1,68 @@
 @import 'partials/variables';
 
 body {
-	background-color: $hog-red;
+	background-color: $hog-red-dark;
+}
+
+div.bg-outer {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
 }
 
 div.bg-square {
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform-origin: center;
-	transform: translate(-50%, -50%) rotateZ(45deg);
 	aspect-ratio: 1;
 
 	width: 90vw;
 	height: 90vw;
 
-	background-color: $hog-red-dark;
+	transform-origin: center;
+	//transform: rotate(45deg);
 
+	background-color: $hog-red;
 
+	animation-name: bgsqrIn;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 0s !important;
+
+	border: 0.1em solid $hog-gold-light;
+	box-shadow:
+		0.4em 0.4em 1.2em 1em #00000060
+	;
 }
 
-div#content {
-	display: flex;
-	flex-direction: column;
-	max-width: 80%;
+div.scoreboard-outer {
+	display: grid;
+
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	place-items: center;
+
+	height: 100vh;
+	width: 100vw;
+}
+
+div.scoreboard {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--player-count) + 1, 1fr);
+	align-items: stretch;
+
+	width: 80%;
 	margin: auto;
-	gap: 1em;
+	padding: 1em 0;
+	gap: 0.5em;
 	justify-content: center;
-	min-height: 100vh;
+	height: calc(6em * (var(--player-count) + 1));
+	max-height: calc(100vh - 2em);
+
+	overflow: hidden;
 
 	font-size: 1.5rem;
 	font-family: "Keep Calm", Helvetica, Arial, sans-serif;
@@ -39,11 +74,13 @@ div#content {
 
 div.row {
 	display: grid;
+	--bgsq-del: 150ms;
 
-	grid-template-columns: 3em 5em 1fr 5em 3em;
+	grid-template-columns: 3em minmax(1em, 5em) 1fr minmax(1em, 5em) 3em;
 	grid-template-rows: 1fr;
 	gap: 1em;
-	counter-reset: anim;
+
+	max-height: 5em;
 
 	div {
 		text-align: center;
@@ -59,19 +96,23 @@ div.row {
 			//noinspection CssInvalidFunction
 			//color: get_text_colour($hog-blue);
 			color: white;
+			padding-top: calc(8rem/43);
+
+			margin-block-start: 0;
+			margin-block-end: 0;
 		}
 
 
         animation-duration: 1s;
 		animation-fill-mode: both;
         animation-timing-function: ease-in-out;
-		animation-delay: calc(var(--animation-order) * 300ms) !important;
+		animation-delay: calc((var(--animation-order) * 250ms) + var(--bgsq-del)) !important;
 	}
 
 	div.name {
 		grid-area: 1 / 3 / 2 / 4;
 		text-align: left;
-		padding-left: 1em;
+		padding-left: 1.5em;
 		place-items: center start;
 
 		animation-name: fadeIn;
@@ -98,7 +139,7 @@ div.row {
 
 	div.position, div.score {
 		background-color: $hog-blue;
-		aspect-ratio: 1;
+		//aspect-ratio: 1;
 		display: grid;
 		place-items: center;
 
@@ -110,6 +151,9 @@ div.row {
 			0 0 0.2em 0.03em $hog-gold, // glow A
 			inset 0 0 0.2em 0.03em $hog-gold // glow B
 		;
+		h2 {
+			filter: drop-shadow(0 0.2em 0.2em black);
+		}
 	}
 
 	div.title {
@@ -164,4 +208,13 @@ div.row {
 	}
 }
 
-
+@keyframes bgsqrIn {
+	0% {
+		transform: rotateZ(-135deg) scale(0);
+		//transform: scale(0);
+	}
+	100% {
+		transform: rotateZ(45deg) scale(100%);
+		//transform: scale(100%);
+	}
+}

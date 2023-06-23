@@ -43,7 +43,7 @@ def scores():
 	room = request.args.get("room")
 	css_files = ["scores.css"]
 	players = []
-	imax = 4
+	imax = 6
 	for i in range(0, imax):
 		players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
 
