@@ -96,6 +96,19 @@ def mod(x, y):
 	return str(int(x.value % y.value))
 
 
+def ordinal(number: int) -> str:
+	if number in [11,12,13]:
+		pass
+	elif number % 10 == 1:
+		return "st"
+	elif number % 10 == 2:
+		return "nd"
+	elif number % 10 == 3:
+		return "rd"
+
+	return "th"
+
+
 compile(
 	dirname=(app.config['ROOT_FOLDER']+"/webapp/static/scss", "webapp/static/css/"),
 	output_style="compressed",
@@ -118,7 +131,8 @@ app.jinja_env.globals.update(
 			list=list,
 			datetime=datetime,
 			json=json,
-			get_text_colour=get_text_colour
+			get_text_colour=get_text_colour,
+			ordinal=ordinal
 		)
 
 from webapp import routes

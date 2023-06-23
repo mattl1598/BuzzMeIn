@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+	<div class="bg-square"></div>
 	<div class="row">
 		<div class="title">
 			<h1>Leaderboard</h1>
@@ -7,13 +8,13 @@
 	</div>
 	{% for player in players %}
 		<div class="row">
-			<div class="position">
-				<h2>{{ loop.index }}</h2>
+			<div class="position" style="--animation-order: {{ loop.index * 3  }};">
+				<h2>{{ loop.index }}{{ ordinal(loop.index) }}</h2>
 			</div>
-			<div class="name">
+			<div class="name" style="--animation-order: {{ loop.index * 3 + 1 }};">
 				<h2>{{ player["name"] }}</h2>
 			</div>
-			<div class="score">
+			<div class="score" style="--animation-order: {{ loop.index * 3 + 2 }};">
 				<h2>{{ player["score"] }}</h2>
 			</div>
 		</div>
