@@ -1,0 +1,134 @@
+@import 'partials/variables';
+
+body {
+	background-color: $hog-red-dark;
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+}
+
+div.bg-outer {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+div.bg-square {
+	position: fixed;
+	aspect-ratio: 1;
+
+	width: 90vw;
+	height: 90vw;
+
+	transform-origin: center;
+	transform: rotate(45deg);
+
+	background-color: $hog-red;
+
+	//animation-name: bgsqrIn;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 0s !important;
+
+	//border: 0.07em solid $hog-gold-light;
+	box-shadow:
+		0.4em 0.4em 1.2em 1em #00000060,
+		inset 0.5em 0.5em 0.8em 0.5em #00000010,
+		inset -0.5em -0.5em 0.8em 0.5em #00000010,
+		inset 1em 1em 0 0 $hog-red,
+		inset -1em -1em 0 0 $hog-red,
+		//inset 1.07em 1.07em 0 0 $hog-gold-light,
+		//inset -1.07em -1.07em 0 0 $hog-gold-light,
+		inset 0.4em 0.4em 1.4em 1.4em #00000060,
+		inset -0.4em -0.4em 1.4em 1.4em #00000060
+	;
+
+	&.small {
+		scale: 0.8;
+	}
+	&.smaller {
+		scale: 0.65;
+	}
+	&.smallest {
+		scale: 0.5;
+	}
+	&.center {
+		scale: 0.3;
+		background-color: $hog-blue;
+
+		.logo {
+			rotate: -45deg;
+			scale: 0.8;
+			svg {
+				fill: $hog-brown;
+				filter: drop-shadow(0 1em 1em black);
+			}
+		}
+	}
+}
+
+div.titles {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	gap: 2em;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+
+	h1 {
+		font-family: "Keep Calm", Helvetica, Arial, sans-serif;
+		transform: scale(4);
+		filter: drop-shadow(0 0.2em 0.2em black);
+	}
+
+	h1.top {
+		transform: scale(2.5);
+	}
+	h1.bottom {
+		transform: scale(4);
+		//padding-left: 1em;
+		span.w1 {
+			@include text3d(white, 0.06, -0.06);
+		}
+		span.w2 {
+			@include text3d(white, 0, -0.06);
+		}
+		span.w3 {
+			@include text3d(white, -0.06, -0.06);
+		}
+	}
+}
+
+div#content {
+	transform-origin: center;
+	//position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+div#content.out {
+	transform-origin: center;
+
+	animation-name: zoomFadeOut;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 0s !important;
+}
+
+
+@keyframes zoomFadeOut {
+	0% {
+		opacity: 100%;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(3);
+	}
+}

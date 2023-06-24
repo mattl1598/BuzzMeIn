@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+	<script>
+		function nextPage() {
+		    window.location.href="/{{ goto }}?room={{ room }}";
+		}
+	</script>
+	<div class="bg-outer">
+		<div class="bg-square"></div>
+		<div class="bg-square small"></div>
+		<div class="bg-square smaller"></div>
+		<div class="bg-square smallest"></div>
+		<div class="bg-square center">
+{#			<object class="logo" data="/img/logo.svg" type="image/svg+xml"></object>#}
+			<div class="logo">
+				{{ logo | safe }}
+			</div>
+		</div>
+	</div>
+
+	<div class="titles">
+		<h1 class="top">Silchester Players'</h1>
+		<h1 class="bottom">
+			<span class="w1">HALL </span>
+			<span class="w2">of </span>
+			<span class="w3">GAMES</span></h1>
+	</div>
+	<script src="static?t=js&q=title.js"></script>
+{% endblock content %}

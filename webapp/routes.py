@@ -4,7 +4,8 @@ from datetime import datetime
 import corha as corha
 
 from webapp import app, socketio
-from flask import render_template, url_for, request, redirect, session, flash, abort, make_response, send_file, jsonify
+from flask import render_template, send_from_directory, url_for, request, redirect, session, flash, abort, \
+	make_response, send_file, jsonify
 from flask_socketio import emit, join_room, leave_room, send, rooms
 from copy import deepcopy
 from random import randint
@@ -38,6 +39,22 @@ def remote():
 	return render_template("remote.html", room=room, player=player, template_css_files=css_files, http_sid=http_sid)
 
 
+@app.route("/title")
+def title():
+	css_files = ["title.css"]
+	room = request.args.get("room")
+	goto = request.args.get("goto")
+	with open(app.config['IMG_FOLDER'] + "logo.svg", "r") as f:
+		logo = f.read()
+	return render_template(
+		"title.html",
+		logo=logo,
+		goto=goto,
+		room=room,
+		template_css_files=css_files
+	)
+
+
 @app.route("/scores")
 def scores():
 	room = request.args.get("room")
@@ -48,13 +65,14 @@ def scores():
 		imax = 6
 		for i in range(0, imax):
 			players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
-	else:
+	elif room in app.game_rooms.keys():
 		game = app.game_rooms[room]["players"]
-		print(game)
 		for player in game.values():
 			players.append(
 				{"name": player["name"], "score": player["score"]}
 			)
+	else:
+		abort(404)
 
 	players.sort(key=lambda i: i.get("score"), reverse=True)
 	return render_template(
@@ -202,6 +220,15 @@ def random_word():
 	print(new_word)
 	return new_word
 
+
+@app.get("/img/<filename>")
+def images(filename):
+	print(app.config['IMG_FOLDER'], filename)
+	return send_from_directory(
+		app.config['IMG_FOLDER'],
+		filename,
+		as_attachment=False
+	)
 
 # refactor that shit into proper separate routes
 @app.route("/static", methods=["GET"])
