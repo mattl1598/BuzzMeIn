@@ -1,0 +1,154 @@
+@import 'partials/variables';
+
+body {
+	background-color: $hog-red-dark;
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+}
+
+div.bg-outer {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+div.bg-square {
+	position: fixed;
+	aspect-ratio: 1;
+
+	width: 90vw;
+	height: 90vw;
+
+	transform-origin: center;
+	transform: rotate(45deg);
+
+	background-color: $hog-red;
+
+	animation-name: bgsqrIn;
+	animation-duration: 2s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 0s;
+
+	border: 0.07em solid $hog-gold;
+	box-shadow:
+		0.4em 0.4em 1.2em 1em #00000080
+		//inset 0.5em 0.5em 0.8em 0.5em #00000010,
+		//inset -0.5em -0.5em 0.8em 0.5em #00000010,
+		//inset 1em 1em 0 0 $hog-red,
+		//inset -1em -1em 0 0 $hog-red,
+		//inset 1.07em 1.07em 0 0 $hog-gold-light,
+		//inset -1.07em -1.07em 0 0 $hog-gold-light,
+		//inset 0.4em 0.4em 1.4em .4em #00000060,
+		//inset -0.4em -0.4em 1.4em .4em #00000060
+	;
+
+	&.small {
+		border: 0.5em solid $hog-gold;
+		scale: 0.8;
+		box-shadow:
+			0.4em 0.4em 1.2em 0.3em #00000080,
+			inset 0.4em 0.5em 0.8em 0.5em #00000050,
+			inset -0.4em -0.5em 0.8em 0.5em #00000050
+		;
+
+		animation-delay: 200ms;
+	}
+	&.smaller {
+		scale: 0.6;
+		border: 0.5em solid $hog-gold;
+		box-shadow:
+			0.4em 0.4em 1em 0.3em #00000080,
+			-0.4em -0.4em 1em 0.3em #00000080,
+			inset 1em 1em 1.6em 1.6em #00000040,
+			inset -1em -1em 1.6em 1.6em #00000040
+		;
+		animation-delay: 400ms;
+	}
+	&.smallest {
+		scale: 0.4;
+		box-shadow:
+			4em 4em 5em 2em #00000080,
+			-0.5em -0.5em 5em 1em #00000040
+		;
+
+		animation-name: bgsqrInRev;
+		animation-delay: 600ms;
+	}
+	&.center {
+		background-color: $hog-blue;
+
+		.logo {
+			rotate: -45deg;
+			scale: 0.8;
+			svg {
+				fill: $hog-brown;
+				filter: drop-shadow(0 1em 1em black);
+			}
+		}
+	}
+}
+
+div.titles {
+	position: absolute;
+	display: flex;
+	place-items: center;
+	justify-content: center;
+	gap: 2em;
+	width: 100vw;
+	height: 100vh;
+	//overflow: hidden;
+	text-align: center;
+	perspective: 100em;
+	transform-style: preserve-3d;
+
+	h1 {
+		font-family: "Keep Calm", Helvetica, Arial, sans-serif;
+		max-width: calc(100vh * 1.4121 * 0.8);
+		font-size: 8em;
+		filter: drop-shadow(0 0.2em 0.2em black);
+		text-align: center;
+		text-transform: uppercase;
+        position:relative;
+		width: auto;
+
+		animation-name: flipDown;
+		animation-duration: 1.5s;
+		animation-fill-mode: both;
+	    animation-timing-function: ease-in-out;
+		animation-delay: 1600ms;
+    }
+}
+
+div#content {
+	transform-origin: center;
+	//position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+div#content.out {
+	transform-origin: center;
+
+	animation-name: zoomFadeOut;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 0s !important;
+}
+
+
+@keyframes zoomFadeOut {
+	0% {
+		opacity: 100%;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(3);
+	}
+}

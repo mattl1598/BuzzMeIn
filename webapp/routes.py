@@ -43,6 +43,8 @@ def remote():
 def title():
 	css_files = ["title.css"]
 	room = request.args.get("room")
+	if room is None:
+		return redirect("/title?room=demo&goto=scores")
 	goto = request.args.get("goto")
 	with open(app.config['IMG_FOLDER'] + "logo.svg", "r") as f:
 		logo = f.read()
@@ -61,7 +63,9 @@ def scores():
 	css_files = ["scores.css"]
 	players = []
 
-	if room == "demo":
+	if room is None:
+		return redirect("/scores?room=demo")
+	elif room == "demo":
 		imax = 6
 		for i in range(0, imax):
 			players.append({"name": nouns["nouns"][int((i+1)*len(nouns["nouns"])/imax)-1], "score": random.randint(0, 30)})
@@ -78,6 +82,48 @@ def scores():
 	return render_template(
 		"scores.html",
 		players=players,
+		template_css_files=css_files
+	)
+
+
+@app.get("/round_reveal")
+def round_reveal():
+	room = request.args.get("room")
+	css_files = ["round_reveal.css"]
+	round_name = ""
+	if room is None:
+		return redirect("/round_reveal?room=demo")
+	elif room == "demo":
+		round_name = "Distinctly Average"
+	elif room in app.game_rooms.keys():
+		round_lookup = {
+			"buzzer": "Answer Smash",
+			"averages": "Distinctly Average",
+			"timer": "Win When They're Singing"
+		}
+		round_name = round_lookup.get(app.game_rooms[room]["mode"])
+
+	return render_template(
+		"round_reveal.html",
+		round_name=round_name,
+		template_css_files=css_files
+	)
+
+
+@app.get("/question")
+def question():
+	room = request.args.get("room")
+	css_files = ["question.css"]
+	mode = ""
+	if room is None:
+		return redirect("/question?room=demo")
+	elif room == "demo":
+		mode = "averages"
+	elif room in app.game_rooms.keys():
+		mode = app.game_rooms[room]["mode"]
+	return render_template(
+		"question.html",
+		mode=mode,
 		template_css_files=css_files
 	)
 

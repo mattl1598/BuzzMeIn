@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="bg-outer">
+		<div class="bg-square"></div>
+	</div>
+	<div class="question-outer">
+		<div class="question {{ mode }}">
+{#			<div class="question-top">#}
+{##}
+{#			</div>#}
+
+			<div class="question-bulk">
+				<div class="qa-text-outer">
+					<h1 class="Q">How many words are in Shakespeare's The Tempest?</h1>
+					<h1 class="A">16,663</h1>
+				</div>
+			</div>
+
+			<div class="avg l">
+				<div class="names">
+					OUTPOST and YOUNGSTER
+				</div>
+				<div class="guess">
+					420
+				</div>
+			</div>
+			<div class="avg r winner">
+				<div class="names">
+					INIQUITY and SEMICONDUCTOR
+				</div>
+				<div class="guess">
+					3000
+				</div>
+			</div>
+			<div class="avg m">
+				<div class="names">
+					DOORSTEP and BY-ELECTION
+				</div>
+				<div class="guess">
+					69000
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

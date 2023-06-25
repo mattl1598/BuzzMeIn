@@ -49,6 +49,17 @@ $hog-brown: #322529;
 	}
 }
 
+@keyframes bgsqrInRev {
+	0% {
+		transform: rotateZ(225deg) scale(0);
+		//transform: scale(0);
+	}
+	100% {
+		transform: rotateZ(45deg) scale(100%);
+		//transform: scale(100%);
+	}
+}
+
 @font-face {
 	font-family: 'ReithSans';
 	src: url(https://static.files.bbci.co.uk/fonts/reith/2.512/BBCReithSans_W_Rg.woff2) format('woff2'),url(https://static.files.bbci.co.uk/fonts/reith/2.512/BBCReithSans_W_Rg.woff) format('woff');
