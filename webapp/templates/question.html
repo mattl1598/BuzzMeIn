@@ -9,14 +9,16 @@
 {##}
 {#			</div>#}
 
-			<div class="question-bulk hidden">
-				<div class="qa-text-outer">
-					<h1 class="Q">How many words are in Shakespeare's The Tempest?</h1>
-					<h1 class="A">16,663</h1>
+			<div id="question-bulk" class="question-bulk" data-class="question-bulk">
+				<div>
+					<div class="qa-text-outer">
+						<h1 class="Q">How many words are in Shakespeare's The Tempest?</h1>
+						<h1 class="A">16,663</h1>
+					</div>
 				</div>
 			</div>
 
-			<div class="avg l">
+			<div id="pair1" class="avg l" data-class="avg l">
 				<div class="names">
 					OUTPOST and YOUNGSTER
 				</div>
@@ -24,7 +26,7 @@
 					420
 				</div>
 			</div>
-			<div class="avg r winner">
+			<div id="pair3" class="avg r" data-class="avg r">
 				<div class="names">
 					INIQUITY and SEMICONDUCTOR
 				</div>
@@ -32,7 +34,7 @@
 					3000
 				</div>
 			</div>
-			<div class="avg m">
+			<div id="pair2" class="avg m" data-class="avg m">
 				<div class="names">
 					DOORSTEP and BY-ELECTION
 				</div>
@@ -42,4 +44,5 @@
 			</div>
 		</div>
 	</div>
+	<script src="static?t=js&q=question.js"></script>
 {% endblock content %}
