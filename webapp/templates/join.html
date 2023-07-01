@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="outer">
+		<div class="controls">
+			<div id="number-input" class="number">
+				<h1>Enter Name:</h1><br>
+				<input type="text" id="number"><br>
+				<button id="sendNumber">Submit</button>
+			</div>
+		</div>
+	</div>
+	<script>
+		let room = "{{ room }}"
+		document.querySelector("#sendNumber").addEventListener("click", function() {
+			let val = document.querySelector("#number").value
+			window.location.href = `/remote?room=${room}&player=${val}`
+		})
+	</script>
+
+{% endblock content %}
