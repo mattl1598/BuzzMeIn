@@ -1,11 +1,5 @@
-svg#left {
-    transform: rotate(-90deg);
-}
-svg#right {
-    transform: rotate(90deg);
-}
-svg#down {
-    transform: rotate(180deg);
+.hide {
+    display: none;
 }
 
 @media only screen and (orientation: landscape) {
@@ -79,4 +73,10 @@ svg#down {
         transform-origin: 50% 50%;
         fill: white;
     }
+}
+
+
+#number, #sendNumber {
+    font-size: 4rem;
+    max-width: 100vw;
 }

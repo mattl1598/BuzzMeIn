@@ -3,8 +3,11 @@ const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const room = urlParams.get('room')
 let order_counter = 0
-let mode = 'buzzer'
+let mode = 'smash'
 let time = Date.now();
+let winnerTime = 0
+let firstBuzz = ""
+
 socket.on('connect', function() {
 	socket.emit('test', {data: 'I\'m connected!'})
 	socket.emit('join', {"room": room, "client_type": "host", "http_sid": http_sid})
@@ -21,23 +24,39 @@ function setGamemode() {
 	socket.emit('gamemode', {room: room, mode: mode})
 	document.querySelector("body").className = mode
 
-	if (mode === "timer") {
+	if (mode === "music") {
 		lock_all_buzzers()
 	}
 }
 
 socket.on('buzzed', function(data) {
 	let buzzer = document.querySelector(`#${data["player"]}`)
-	if (mode === "timer") {
-		let timed = Date.now()-time
-		let diff = Math.abs(document.querySelector("#timer_aim").value - (Date.now()-time))
+	if (mode === "music") {
+		let timed = Date.now() - time
+		socket.emit('music', {"time": timed, "room": room, "player": data["player"]})
+		let diff = Math.abs(document.querySelector("#timer_aim").value - (Date.now() - time))
 		buzzer.querySelector(".timer").innerHTML = `${timed}ms (${diff}ms)`
 		buzzer.style.order = diff
-	} else if (mode === "buzzer") {
+	} else if (mode === "dating") {
 		order_counter++
 		buzzer.style.order = order_counter
+		buzzer.getElementsByClassName("answer")[0].innerHTML = data["answer"]
+	} else {
+		order_counter++
+		buzzer.style.order = order_counter
+		if (firstBuzz === "") {
+			firstBuzz = data["player"]
+			socket.emit('firstBuzz', {"name": data["player"]})
+		}
 	}
 });
+
+socket.on('startTimer', function(data) {
+	console.log("startTimer")
+	winnerTime = data["goal"]
+	release_all_buzzers()
+	time=Date.now()
+})
 
 socket.on('scores', function(data) {
 	console.log(data)

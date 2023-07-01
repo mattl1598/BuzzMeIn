@@ -26,6 +26,13 @@ function send_buzz() {
 	}
 }
 
+
+document.querySelector("#sendNumber").addEventListener("click", function() {
+	let val = document.querySelector("#number").value
+	console.log(val)
+	socket.emit('buzz', {"room": room, "player": player, "answer": val})
+})
+
 socket.on('release', function() {
 	buzzed = false
 	buzzer_elem.classList.remove("buzzed")
@@ -43,6 +50,16 @@ socket.on('identify', function() {
 socket.on('scores', function(data) {
 	console.log(data["players"])
 	score = data["players"][sid]["score"]
+})
+
+socket.on('gamemode', function(data) {
+	if (data["mode"] === "dating") {
+		document.querySelector("#buzzer").classList.add("hide")
+		document.querySelector("#number-input").classList.remove("hide")
+	} else {
+		document.querySelector("#buzzer").classList.remove("hide")
+		document.querySelector("#number-input").classList.add("hide")
+	}
 })
 
 socket.on('error', function(data) {

@@ -28,11 +28,11 @@ div.bg-square {
 
 	background-color: $hog-red;
 
-	//animation-name: bgsqrIn;
-	animation-duration: 1s;
+	animation-name: bgsqrIn;
+	animation-duration: 1.5s;
 	animation-fill-mode: both;
     animation-timing-function: ease-in-out;
-	animation-delay: 0s !important;
+	//animation-delay: 0s !important;
 
 	//border: 0.07em solid $hog-gold-light;
 	box-shadow:
@@ -49,19 +49,30 @@ div.bg-square {
 
 	&.small {
 		scale: 0.8;
+		animation-delay: 300ms;
 	}
 	&.smaller {
 		scale: 0.65;
+		animation-delay: 600ms;
+		animation-name: bgsqrInRev;
 	}
 	&.smallest {
 		scale: 0.5;
+		animation-delay: 900ms;
 	}
 	&.center {
 		scale: 0.3;
 		background-color: $hog-blue;
+		animation-name: bgsqrInRev;
+		animation-delay: 1200ms;
 
 		.logo {
 			rotate: -45deg;
+			animation-name: fadeIn;
+			animation-delay: 2.2s;
+			animation-duration: 1s;
+			animation-fill-mode: both;
+			animation-timing-function: ease-in-out;
 			scale: 0.8;
 			svg {
 				fill: $hog-brown;
@@ -79,6 +90,11 @@ div.titles {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+	animation-name: flipDown;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+	animation-delay: 2s;
 
 	h1 {
 		font-family: "Keep Calm", Helvetica, Arial, sans-serif;

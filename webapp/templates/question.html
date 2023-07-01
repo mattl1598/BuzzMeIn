@@ -1,22 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
+	<script>
+		const room = "{{ room }}"
+		const questions = {{ questions[mode] | safe }};
+		const mode = "{{ mode }}"
+	</script>
 	<div class="bg-outer">
 		<div class="bg-square"></div>
 	</div>
 	<div class="question-outer">
-		<div class="question {{ mode }}">
-{#			<div class="question-top">#}
-{##}
-{#			</div>#}
+		<div class="question {{ mode }}" style="--player-count: {{ len(players) }}">
+			<div id="smash-question" class="question-top" data-class="question-top hide">
+				What are the Officials in tennis are called?
+			</div>
 
 			<div id="question-bulk" class="question-bulk showable" data-class="question-bulk showable hide">
 				<div>
 					<div class="qa-text-outer">
-						<h1 class="Q">How many words are in Shakespeare's The Tempest?</h1>
-						<h1 class="A">16,663</h1>
+						<img id="smash-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/330px-Donald_Trump_official_portrait.jpg" alt="">
+						<h1 class="Q">
+							<span class="text" id="question-text">Which play by Oscar Wilde features the line “A Handbag”?</span>
+							<span class="music">♫</span>
+						</h1>
+						<h1 class="A">
+							<span id="answer-text">Boogie Wonderland</span>
+							<div id="answer-gho" class="answer-reverse">
+{#									{% set answer = [("BEING",3), ("EARNEST", 4), ("IMPORTANCE", 1), ("OF", 2), ("THE", 0)] %}#}
+								{% set answer = [("THE", 4), ("IMPORTANCE", 2), ("OF", 3), ("BEING",1), ("EARNEST", 1) ] %}
+								{% for word in answer %}
+									<div style="order: {{ word[1] }};">{{ word[0] }} </div>
+								{% endfor %}
+							</div>
+						</h1>
 					</div>
+
+
 				</div>
 			</div>
+
+			{% for i in players %}
+				<div id="player{{ loop.index }}" class="player-music" data-class="player-music" style="--row: {{ loop.index }};">
+					<div class="player-name">
+					</div>
+					<div class="player-time">
+					</div>
+				</div>
+			{% endfor %}
 
 			<div id="pair1" class="avg l showable" data-class="avg l showable hide">
 				<div class="names">
@@ -42,7 +71,19 @@
 					69000
 				</div>
 			</div>
+			
+{#			<div class="buzzed show">#}
+{#				DOORSTEP#}
+{#			</div>			#}
+
+			<div id="smash-buzz" class="smash-buzz" data-class="smash-buzz hide">
+				<div class="qa-text-outer">
+					<div class="Q" id="smash-buzz-name">DOORSTOP</div>
+					<div id="smash-answer" class="A">Donald Trumpires</div>
+				</div>
+			</div>
 		</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
 	<script src="static?t=js&q=question.js"></script>
 {% endblock content %}

@@ -7,13 +7,14 @@
 	<div class="title">
 		<h1>Player: {{ player }}</h1>
 	</div>
-{#	<div class="game-controls">#}
-{#		<button id="pp" onclick="play_pause()">Start Game</button>#}
-{#		<button onclick="restart()">Restart</button>#}
-{#	</div>#}
 	<div class="controls">
 		<div class="buzzer" onclick="send_buzz()" id="buzzer">
 
+		</div>
+
+		<div id="number-input" class="number hide">
+			<input type="number" id="number"><br>
+			<button id="sendNumber">Submit</button>
 		</div>
 	</div>
 </div>

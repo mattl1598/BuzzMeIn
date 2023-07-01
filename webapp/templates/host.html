@@ -8,9 +8,11 @@
 		<button onclick="release_all_buzzers()">Release All Buzzers</button>
 		<button onclick="socket.emit('rooms', {'room': 'test'})">Rooms</button>
 		<select id="gamemode" name="gamemode" onchange="setGamemode()">
-			<option value="buzzer" selected>Gamemode: Buzzer</option>
-			<option value="timer">Gamemode: Timer</option>
+			<option value="smash" selected>Gamemode: Answer Smash</option>
+			<option value="music">Gamemode: Music</option>
 			<option value="averages">Gamemode: Averages</option>
+			<option value="gho">Gamemode: Games Hall Of</option>
+			<option value="dating">Gamemode: Terrible at Dating</option>
 		</select>
 	</div>
 	<hr>
@@ -27,6 +29,7 @@
 			<span class="score_readout">0</span>
 			<button onclick="updateScore(1)">+1</button>
 		</div>
+		<div class="answer"></div>
 	</div>
 	<div id="data">
 

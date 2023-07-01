@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
+	{% if blank is defined %}
+		<style>body { opacity: 0; }</style>
+	{% endif %}
 	<script>
 		function nextPage() {
 		    window.location.href="/{{ goto }}?room={{ room }}";
 		}
+		const room = "{{ room }}"
 	</script>
 	<div class="bg-outer">
 		<div class="bg-square"></div>
@@ -16,5 +20,5 @@
 	<div class="titles">
 		<h1 class="">{{ round_name }}</h1>
 	</div>
-	<script src="static?t=js&q=title.js"></script>
+	<script src="static?t=js&q=reveal.js"></script>
 {% endblock content %}
